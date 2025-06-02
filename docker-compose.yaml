@@ -14,6 +14,7 @@ services:
       DATABASE_USER: superset
       DATABASE_PASSWORD: superset
       DATABASE_DB: superset
+      - SUPERSET_FEATURE_FLAGS='{"ALLOW_FILE_UPLOAD": true}'
     volumes:
       - superset_home:/app/superset_home
     depends_on:
