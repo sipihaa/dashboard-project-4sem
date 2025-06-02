@@ -14,18 +14,13 @@ services:
       DATABASE_USER: superset
       DATABASE_PASSWORD: superset
       DATABASE_DB: superset
-      ENABLE_CSV_UPLOAD: "true"
-      ENABLE_EXCEL_UPLOAD: "true"
-      UPLOAD_FOLDER: /app/superset_home/uploads
     volumes:
       - superset_home:/app/superset_home
-      - ./uploads:/app/superset_home/uploads
     depends_on:
       - db
     restart: always
     command: >
       /bin/sh -c "
-      pip install pandas openpyxl &&
       superset db upgrade &&
       superset fab create-admin --username admin --firstname Admin --lastname User --email admin@superset.com --password admin &&
       superset init &&
