@@ -1,5 +1,7 @@
 FROM apache/superset:latest
-
 USER root
-RUN pip install psycopg2-binary
+
+COPY psycopg2_binary-*.whl /tmp/
+RUN pip install /tmp/psycopg2_binary-*.whl
+
 USER superset
