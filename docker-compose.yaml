@@ -7,26 +7,21 @@ services:
     ports:
       - "8088:8088"
     environment:
-      SUPERSET_SECRET_KEY: super_secret_key
-      DATABASE_DIALECT: postgresql
-      DATABASE_HOST: db
-      DATABASE_PORT: 5432
-      DATABASE_USER: superset
-      DATABASE_PASSWORD: superset
-      DATABASE_DB: superset
-      SUPERSET_FEATURE_FLAGS: '{"ALLOW_FILE_UPLOAD": true}'
+      - SUPERSET_SECRET_KEY=supersecretkey
+      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://superset:superset@db:5432/superset
+      - REDIS_HOST=redis
     volumes:
       - superset_home:/app/superset_home
     depends_on:
       - db
-    restart: always
+      - redis
     command: >
-      /bin/sh -c "
+      /bin/bash -c "
       superset db upgrade &&
-      superset fab create-admin --username admin --firstname Admin --lastname User --email admin@superset.com --password admin &&
+      superset fab create-admin --username admin --firstname Superset --lastname Admin --email admin@superset.com --password admin &&
       superset init &&
       superset run -h 0.0.0.0 -p 8088"
-
+  
   db:
     image: postgres:13
     container_name: superset_db
@@ -36,8 +31,11 @@ services:
       POSTGRES_PASSWORD: superset
     volumes:
       - db_data:/var/lib/postgresql/data
-    restart: always
+
+  redis:
+    image: redis:latest
+    container_name: superset_redis
 
 volumes:
-  db_data:
   superset_home:
+  db_data:
