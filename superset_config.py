@@ -1,0 +1,5 @@
+ENABLE_CORS = True
+WTF_CSRF_ENABLED = False
+OVERRIDE_HTTP_HEADERS = {
+    "X-Frame-Options": "ALLOWALL",
+}
