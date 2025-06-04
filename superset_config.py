@@ -1,3 +1,7 @@
+FEATURE_FLAGS = {
+    "EMBEDDED_DASHBOARDS": True,
+}
+
 OVERRIDE_HTTP_HEADERS = {
     "X-Frame-Options": "ALLOWALL",
 }
