@@ -5,3 +5,5 @@ FEATURE_FLAGS = {
 OVERRIDE_HTTP_HEADERS = {
     "X-Frame-Options": "ALLOWALL",
 }
+
+ENABLE_IFRAME_EMBED = True
