@@ -1,7 +1,10 @@
 FROM apache/superset:latest
 USER root
 
-COPY psycopg2_binary-*.whl /tmp/
-RUN pip install /tmp/psycopg2_binary-*.whl
+# Копируем все .whl файлы из папки whl
+COPY whl/*.whl /tmp/wheels/
+
+# Устанавливаем все пакеты из .whl файлов
+RUN pip install /tmp/wheels/*.whl
 
 USER superset
